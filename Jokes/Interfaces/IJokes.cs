@@ -3,7 +3,7 @@ using Jokes.Models;
 
 namespace Jokes.Interfaces{
     public interface IJokes{
-        IEnumerable<IJokes> GetAppJokes();
+        IEnumerable<Joke> GetJokes();
         Joke GetJokeById(int id);
         
     }
