@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace Jokes.Interfaces{
     public class SqlJokes : IJokes{
-        private readonly SqlJokes _context;
+        private readonly JokeContext _context;
 
         public SqlJokes(JokeContext context)
         {
             _context = context;
         }
         public IEnumerable<Joke> GetJokes(){
-            return _context.Commands.ToList();
+            return _context.Jokes.ToList();
         }
         public Joke GetJokeById(int id){
-            return _context.Commands.FirstOrDefault(x => x.Id == id);
+            return _context.Jokes.FirstOrDefault(x => x.Id == id);
         }
     }
 }
