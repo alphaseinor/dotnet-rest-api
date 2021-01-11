@@ -39,5 +39,14 @@ namespace Jokes.Controllers{
             }
             return NotFound();
         }
+
+        //GET api/jokes
+        [HttpPost]
+        public ActionResult<JokeReadDto> CreateJoke(JokeCreateDto jokeCreateDto){
+            var jokeModel = _mapper.Map<Joke>(jokeCreateDto);
+            _repository.CreateJoke(jokeModel);
+            _repository.SaveChanges();
+            return Ok(jokeModel);
+        }
     }
 }

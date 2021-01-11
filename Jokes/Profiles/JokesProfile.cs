@@ -7,6 +7,7 @@ namespace Jokes.Profiles{
         public JokesProfile()
         {
             CreateMap<Joke, JokeReadDto>();
+            CreateMap<JokeCreateDto, Joke>();
         }
     }
 }

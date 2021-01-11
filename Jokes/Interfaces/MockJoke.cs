@@ -16,5 +16,13 @@ namespace Jokes.Interfaces{
         public Joke GetJokeById(int id){
             return new Joke{Id=0, setUp="I don't trust stairs", punchLine="They're always up to something"};
         }
+
+        public bool SaveChanges(){
+            throw new System.NotImplementedException();
+        }
+
+        public void CreateJoke(Joke joke){
+            throw new System.NotImplementedException();
+        }
     }
 }
