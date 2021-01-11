@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Jokes.Interfaces;
 using Jokes.Models;
+using Jokes.Dtos;
+using AutoMapper;
 
 namespace Jokes.Controllers{
     [Route("api/jokes")]
@@ -9,10 +11,12 @@ namespace Jokes.Controllers{
     public class JokeController : ControllerBase{
 
         private readonly IJokes _repository;
+        private readonly IMapper _mapper;
 
-        public JokeController(IJokes repository){
+        public JokeController(IJokes repository, IMapper mapper){
             //inject dep
             _repository = repository;
+            _mapper = mapper;
         }
 
         // instead of doing a class based approach I'm switching it to the interface
@@ -20,18 +24,20 @@ namespace Jokes.Controllers{
 
         //GET api/jokes
         [HttpGet]
-        public ActionResult<IEnumerable<Joke>> GetAllJokes(){
+        public ActionResult<IEnumerable<JokeReadDto>> GetAllJokes(){
             var jokeItems = _repository.GetJokes();
 
-            return Ok(jokeItems);
+            return Ok(_mapper.Map<IEnumerable<JokeReadDto>>(jokeItems));
         }
 
         //GET api/jokes/:id
         [HttpGet("{id}")]
-        public ActionResult<Joke> GetJokeByID(int id){
+        public ActionResult<JokeReadDto> GetJokeByID(int id){
             var jokeItem = _repository.GetJokeById(id); //get id from binding source, uri parameters
-
-            return Ok(jokeItem);
+            if(jokeItem != null){
+                return Ok(_mapper.Map<JokeReadDto>(jokeItem));
+            }
+            return NotFound();
         }
     }
 }
