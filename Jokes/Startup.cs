@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Jokes.Interfaces;
 
 namespace example
 {
@@ -26,6 +27,7 @@ namespace example
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IJokes, MockJoke>();
         }
 
         // this will be used for middleware/requests
