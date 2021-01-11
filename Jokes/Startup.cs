@@ -31,7 +31,8 @@ namespace example
             
             services.AddDbContext<JokeContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("JokesConnection")));
             services.AddControllers();
-            services.AddScoped<IJokes, MockJoke>();
+            //services.AddScoped<IJokes, MockJoke>();
+            services.AddScoped<IJokes, SqlJokes>();
         }
 
         // this will be used for middleware/requests
