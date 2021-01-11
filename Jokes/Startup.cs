@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Jokes.Interfaces;
+using AutoMapper;
 
 
 namespace example
@@ -31,6 +32,9 @@ namespace example
             
             services.AddDbContext<JokeContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("JokesConnection")));
             services.AddControllers();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             //services.AddScoped<IJokes, MockJoke>();
             services.AddScoped<IJokes, SqlJokes>();
         }
