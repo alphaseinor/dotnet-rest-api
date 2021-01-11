@@ -7,7 +7,16 @@ namespace Jokes.Controllers{
     [Route("api/jokes")]
     [ApiController]
     public class JokeController : ControllerBase{
-        private readonly MockJoke _repository = new MockJoke();
+
+        private readonly IJokes _repository;
+
+        public JokeController(IJokes repository){
+            //inject dep
+            _repository = repository;
+        }
+
+        // instead of doing a class based approach I'm switching it to the interface
+        // private readonly MockJoke _repository = new MockJoke();
 
         //GET api/jokes
         [HttpGet]
