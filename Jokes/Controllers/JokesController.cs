@@ -31,7 +31,7 @@ namespace Jokes.Controllers{
         }
 
         //GET api/jokes/:id
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetJokeByID")]
         public ActionResult<JokeReadDto> GetJokeByID(int id){
             var jokeItem = _repository.GetJokeById(id); //get id from binding source, uri parameters
             if(jokeItem != null){
@@ -46,7 +46,9 @@ namespace Jokes.Controllers{
             var jokeModel = _mapper.Map<Joke>(jokeCreateDto);
             _repository.CreateJoke(jokeModel);
             _repository.SaveChanges();
-            return Ok(jokeModel);
+            var jokeReadDto = _mapper.Map<JokeReadDto>(jokeModel);
+
+            return CreatedAtRoute(nameof(GetJokeByID), new {Id = jokeReadDto.Id}, jokeReadDto);
         }
     }
 }
